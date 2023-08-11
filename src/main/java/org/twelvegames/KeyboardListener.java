@@ -35,6 +35,4 @@ public class KeyboardListener {
             return getKeyboardListener().keyPressed[keycode];
         } else return false;
     }
-
-
 }

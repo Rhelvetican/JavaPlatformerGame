@@ -70,6 +70,7 @@ public class Window {
         glfwSetCursorPosCallback(glWindow, MouseListener::mousePosCallback);
         glfwSetMouseButtonCallback(glWindow, MouseListener::mouseActionCallback);
         glfwSetScrollCallback(glWindow, MouseListener::mouseScrollCallback);
+        glfwSetKeyCallback(glWindow, KeyboardListener::keyCallback);
 
         try ( MemoryStack stack = stackPush() ) {
             IntBuffer pWidth = stack.mallocInt(1);
@@ -97,6 +98,11 @@ public class Window {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glfwSwapBuffers(glWindow);
             glfwPollEvents();
+
+
+            if (KeyboardListener.getKeyPressed(GLFW_KEY_SPACE)) {
+                System.out.println("SPACE");
+            }
         }
     }
 }
