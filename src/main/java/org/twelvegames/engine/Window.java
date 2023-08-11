@@ -133,10 +133,8 @@ public class Window {
             dTime = endTime - beginTime;
             beginTime = endTime;
 
-            currentScene.update(dTime);
-
-            if (KeyboardListener.getKeyPressed(GLFW_KEY_SPACE)) {
-                fade2Black = true;
+            if (dTime >= 0) {
+                currentScene.update(dTime);
             }
         }
     }

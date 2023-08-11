@@ -8,7 +8,7 @@ public class LevelEditorScene extends Scene {
     private float time2ChangeScene = 2.0f;
 
     public LevelEditorScene() {
-
+        System.out.println("Level Editor Scene.");
     }
 
     @Override
@@ -21,6 +21,8 @@ public class LevelEditorScene extends Scene {
 
             time2ChangeScene =- dt;
             Window.getWindow().r -= dt * 5.0f;
+            Window.getWindow().g -= dt * 5.0f;
+            Window.getWindow().b -= dt * 5.0f;
 
         } else if (changingScene) {
 
