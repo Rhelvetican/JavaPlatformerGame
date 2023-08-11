@@ -1,4 +1,4 @@
-import org.twelvegames.Window;
+import org.twelvegames.engine.Window;
 
 public class Main {
     public static void main(String[] args) {

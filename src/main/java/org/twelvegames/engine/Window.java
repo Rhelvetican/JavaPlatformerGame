@@ -1,9 +1,10 @@
-package org.twelvegames;
+package org.twelvegames.engine;
 
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
+import org.twelvegames.utils.Time;
 
 import java.nio.*;
 
@@ -20,10 +21,17 @@ public class Window {
     private String title;
     private long glWindow;
     private static Window window;
+
+    private float r, g, b, a;
+    private boolean fade2Black;
     private Window() {
         this.width = 1280;
         this.height = 720;
         this.title = "Unnamed 0";
+        this.r = 1;
+        this.g = 1;
+        this.b = 1;
+        this.a = 1;
     }
     public static Window getWindow() {
         if (Window.window == null) {
@@ -92,17 +100,32 @@ public class Window {
     }
 
     public void loop() {
+        float beginTime = Time.getTime();
+        float endTime = Time.getTime();
+
         GL.createCapabilities();
-        glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
+
+        //Main loop
         while (!glfwWindowShouldClose(glWindow)) {
+            glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glfwSwapBuffers(glWindow);
             glfwPollEvents();
 
+            if (fade2Black) {
+                r = Math.max(r - 0.01f, 0);
+                g = Math.max(g - 0.01f, 0);
+                b = Math.max(b - 0.01f, 0);
+                a = Math.max(a - 0.01f, 0);
+            }
 
             if (KeyboardListener.getKeyPressed(GLFW_KEY_SPACE)) {
-                System.out.println("SPACE");
+                fade2Black = true;
             }
+
+            endTime = Time.getTime();
+            float dTime = endTime - beginTime;
+            beginTime = endTime;
         }
     }
 }
