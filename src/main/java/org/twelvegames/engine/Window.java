@@ -113,6 +113,8 @@ public class Window {
         glfwSwapInterval(1);
 
         glfwShowWindow(glWindow);
+
+        Window.changeScene(0);
     }
 
     public void loop() {

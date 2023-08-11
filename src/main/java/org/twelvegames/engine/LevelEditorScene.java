@@ -2,6 +2,8 @@ package org.twelvegames.engine;
 
 import java.awt.event.KeyEvent;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_0;
+
 public class LevelEditorScene extends Scene {
 
     private boolean changingScene = false;
@@ -9,13 +11,16 @@ public class LevelEditorScene extends Scene {
 
     public LevelEditorScene() {
         System.out.println("Level Editor Scene.");
+        Window.getWindow().r = 0;
+        Window.getWindow().g = 0;
+        Window.getWindow().b = 0;
     }
 
     @Override
     public void update(float dt) {
         if (!changingScene && KeyboardListener.getKeyPressed(KeyEvent.VK_SPACE)) {
             changingScene = true;
-        };
+        }
 
         if (changingScene && (time2ChangeScene > 0)) {
 
@@ -24,7 +29,7 @@ public class LevelEditorScene extends Scene {
             Window.getWindow().g -= dt * 5.0f;
             Window.getWindow().b -= dt * 5.0f;
 
-        } else if (changingScene) {
+        } else if (changingScene && (KeyboardListener.getKeyPressed(GLFW_KEY_0))) {
 
             Window.changeScene(1);
 
