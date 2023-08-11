@@ -1,6 +1,6 @@
 package org.twelvegames.engine;
 
-public class LevelScene extends SceneManager {
+public class LevelScene extends Scene {
 
     public LevelScene() {
 

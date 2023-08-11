@@ -1,7 +1,7 @@
 package org.twelvegames.engine;
 
-public abstract class SceneManager {
-    public SceneManager() {
+public abstract class Scene {
+    public Scene() {
 
     }
 

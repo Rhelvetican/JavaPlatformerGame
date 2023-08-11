@@ -21,8 +21,10 @@ public class Window {
     private String title;
     private long glWindow;
     private static Window window;
+    private static int currentSceneIndex = -1;
+    private static Scene currentScene;
 
-    private float r, g, b, a;
+    public float r, g, b, a;
     private boolean fade2Black;
     private Window() {
         this.width = 1280;
@@ -33,6 +35,20 @@ public class Window {
         this.b = 1;
         this.a = 1;
     }
+
+    public static void changeScene(int newScene) {
+        switch (newScene) {
+            case 0:
+                currentScene = new LevelEditorScene();
+                break;
+            case 1:
+                currentScene = new LevelScene();
+                break;
+            default:
+                assert false: "Unknown Scene Index used.";
+        }
+    }
+
     public static Window getWindow() {
         if (Window.window == null) {
             Window.window = new Window();
@@ -101,7 +117,8 @@ public class Window {
 
     public void loop() {
         float beginTime = Time.getTime();
-        float endTime = Time.getTime();
+        float endTime;
+        float dTime = -1.0f;
 
         GL.createCapabilities();
 
@@ -112,20 +129,15 @@ public class Window {
             glfwSwapBuffers(glWindow);
             glfwPollEvents();
 
-            if (fade2Black) {
-                r = Math.max(r - 0.01f, 0);
-                g = Math.max(g - 0.01f, 0);
-                b = Math.max(b - 0.01f, 0);
-                a = Math.max(a - 0.01f, 0);
-            }
+            endTime = Time.getTime();
+            dTime = endTime - beginTime;
+            beginTime = endTime;
+
+            currentScene.update(dTime);
 
             if (KeyboardListener.getKeyPressed(GLFW_KEY_SPACE)) {
                 fade2Black = true;
             }
-
-            endTime = Time.getTime();
-            float dTime = endTime - beginTime;
-            beginTime = endTime;
         }
     }
 }
